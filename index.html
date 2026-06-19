@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>服装收银系统</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <h1>服装收银系统</h1>
+    <p>支持扫码、选择商品、数量调整、优惠及结算打印</p>
+  </header>
+
+  <main>
+    <section class="product-panel">
+      <h2>商品列表</h2>
+      <div class="filter-row">
+        <input id="searchInput" type="search" placeholder="搜索商品名称、条码、款式..." />
+        <button id="clearFilter">清除</button>
+      </div>
+      <div id="productList" class="grid"></div>
+    </section>
+
+    <div class="right-column">
+      <section class="warehouse-panel">
+        <h2>仓库入库</h2>
+        <div class="filter-row">
+          <input id="warehouseBarcodeInput" type="text" placeholder="扫码枪扫码条码/款号" />
+          <input id="warehouseQtyInput" type="number" min="1" value="1" />
+          <button id="warehouseAddButton">入库</button>
+        </div>
+        <div class="warehouse-form">
+          <input id="warehouseNameInput" type="text" placeholder="商品名称（新建商品时必填）" />
+          <div class="filter-row">
+            <input id="warehouseStyleInput" type="text" placeholder="类别（如：男装/女装/休闲）" />
+            <input id="warehouseSizeInput" type="text" placeholder="尺码（如：S/M/L/XL）" />
+          </div>
+          <div class="filter-row">
+            <input id="warehousePriceInput" type="number" min="0" step="0.01" placeholder="单价（新建商品时必填）" />
+            <input id="warehouseImageInput" type="text" placeholder="图片地址或留空使用默认图" />
+          </div>
+        </div>
+        <div id="warehouseMessage" class="warehouse-message"></div>
+      </section>
+
+      <section class="checkout-panel">
+        <h2>购物清单</h2>
+        <div class="scan-row">
+          <input id="barcodeInput" type="text" placeholder="输入条码/款号后按回车" />
+          <button id="scanButton">添加</button>
+        </div>
+        <div class="cart-table-wrap">
+          <table class="cart-table">
+            <thead>
+              <tr>
+                <th>商品</th>
+                <th>条码</th>
+                <th>单价</th>
+                <th>数量</th>
+                <th>小计</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody id="cartBody"></tbody>
+          </table>
+        </div>
+
+        <div class="summary-card">
+          <div class="summary-row"><span>原价合计：</span><strong id="subtotal">¥0.00</strong></div>
+          <div class="summary-row quick-discount">
+            <span>快捷折扣：</span>
+            <div class="discount-actions">
+              <button type="button" data-discount="90">9折</button>
+              <button type="button" data-discount="95">9.5折</button>
+              <button type="button" data-discount="88">88折</button>
+              <button type="button" data-discount="80">8折</button>
+            </div>
+          </div>
+          <div class="summary-row">
+            <label>折扣率：<input id="discountInput" type="number" min="0" max="100" value="100" /> 折</label>
+          </div>
+          <div class="summary-row"><span>实付金额：</span><strong id="total">¥0.00</strong></div>
+          <button id="checkoutButton" class="primary">结算</button>
+          <button id="clearCartButton" class="secondary">清空购物车</button>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <div id="receiptModal" class="modal hidden">
+    <div class="modal-content">
+      <h3>结算单</h3>
+      <pre id="receiptText"></pre>
+      <button id="closeReceipt">关闭</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
